@@ -23,12 +23,11 @@ router.post(
 
     const { email, password } = req.body;
 
-    console.log(email, password);
+    const user = await User.findOne({ email });
 
-    res.json({
-      email,
-      password,
-    });
+    await User.create({ email, password });
+
+    res.send("store user in mongoose");
   }
 );
 
