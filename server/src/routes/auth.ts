@@ -18,16 +18,25 @@ router.post(
           msg: error.msg,
         };
       });
-      return res.json({ error });
+      return res.json({ error, data: null });
     }
 
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
 
-    await User.create({ email, password });
+    if (user) {
+      return res.json({
+        errors: [
+          {
+            msg: "Email already in use",
+          },
+        ],
+        data: null,
+      });
+    }
 
-    res.send("store user in mongoose");
+    res.json(user);
   }
 );
 
