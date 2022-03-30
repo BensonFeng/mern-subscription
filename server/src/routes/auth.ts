@@ -2,8 +2,11 @@ import express from "express";
 import { body, validationResult } from "express-validator";
 import User from "../models/user";
 import bcrypt from "bcryptjs";
-
+import JWT from "jsonwebtoken";
 const router = express.Router();
+import dotenv from "dotenv";
+
+dotenv.config();
 
 router.post(
   "/signup",
@@ -38,9 +41,28 @@ router.post(
     }
 
     const hashedPassword = await bcrypt.hash(password, 8);
-    const newUser = await User.create({ email, password: hashedPassword });
 
-    res.json(user);
+    const newUser = await User.create({ email, password: hashedPassword });
+    console.log(newUser);
+    console.log(newUser.email);
+
+    const token = await JWT.sign(
+      { email: newUser.email },
+      process.env.JWT_SECRET as string,
+      {
+        expiresIn: 360000,
+      }
+    );
+    res.json({
+      errors: [],
+      data: {
+        token,
+        user: {
+          id: newUser._id,
+          email: newUser.email,
+        },
+      },
+    });
   }
 );
 
