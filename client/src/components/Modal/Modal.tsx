@@ -47,6 +47,8 @@ const ModalComponent = ({ text, variant, isSingnupFlow }: ModalProps) => {
     if (data.errors.length) {
       setErrorMsg(data.errors[0].msg);
     }
+
+    localStorage.setItem("token", data.data.token);
   };
 
   return (
