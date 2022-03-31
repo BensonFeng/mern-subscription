@@ -1,5 +1,5 @@
 import { Navbar, NavItem, NavLink } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { UserContext } from "../../context";
 import styled from "styled-components";
@@ -8,8 +8,29 @@ const LeftNavContainer = styled.div`
   margin-left: auto;
 `;
 
+interface User {
+  data: {
+    id: string;
+    email: string;
+  } | null;
+  error: string | null;
+  loading: boolean;
+}
+
 const Nav = () => {
   const [state, setState] = useContext(UserContext);
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setState({
+      data: null,
+      error: null,
+      loading: false,
+    });
+    localStorage.removeItem("token");
+    navigate("/");
+  };
   return (
     <Navbar>
       <NavItem>
@@ -20,7 +41,7 @@ const Nav = () => {
       {state.data && (
         <LeftNavContainer>
           <NavItem>
-            <NavLink>Logout</NavLink>
+            <NavLink onClick={handleLogout}>Logout</NavLink>
           </NavItem>
         </LeftNavContainer>
       )}
