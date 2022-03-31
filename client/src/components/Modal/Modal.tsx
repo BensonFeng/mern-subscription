@@ -63,6 +63,9 @@ const ModalComponent = ({ text, variant, isSingnupFlow }: ModalProps) => {
     });
 
     localStorage.setItem("token", response.data.token);
+    axios.defaults.headers.common[
+      "authorization"
+    ] = `Bearer ${response.data.token}`;
     navigate("/articles");
   };
 

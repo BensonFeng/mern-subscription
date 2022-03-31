@@ -8,15 +8,6 @@ const LeftNavContainer = styled.div`
   margin-left: auto;
 `;
 
-interface User {
-  data: {
-    id: string;
-    email: string;
-  } | null;
-  error: string | null;
-  loading: boolean;
-}
-
 const Nav = () => {
   const [state, setState] = useContext(UserContext);
 
