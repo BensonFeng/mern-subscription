@@ -6,6 +6,7 @@ import JWT from "jsonwebtoken";
 const router = express.Router();
 import dotenv from "dotenv";
 import { checkAuth } from "../middleware/checkAuth";
+import { stripe } from "../utils/stripe";
 
 dotenv.config();
 
@@ -43,7 +44,20 @@ router.post(
 
     const hashedPassword = await bcrypt.hash(password, 8);
 
-    const newUser = await User.create({ email, password: hashedPassword });
+    const customer = await stripe.customers.create(
+      {
+        email,
+      },
+      {
+        apiKey: process.env.STRIPE_SECRET_KEY,
+      }
+    );
+
+    const newUser = await User.create({
+      email,
+      password: hashedPassword,
+      customerStripeId: customer.id,
+    });
     console.log(newUser);
     console.log(newUser.email);
 
@@ -61,6 +75,7 @@ router.post(
         user: {
           id: newUser._id,
           email: newUser.email,
+          stripeCustomerId: customer.id,
         },
       },
     });
@@ -123,6 +138,7 @@ router.get("/me", checkAuth, async (req, res) => {
       user: {
         id: user._id,
         email: user.email,
+        stripeCustomerId: user.stripeCustomerId,
       },
     },
   });

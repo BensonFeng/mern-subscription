@@ -54,6 +54,15 @@ const ArticlesPlan = () => {
     Premium: "pink",
   };
 
+  const createSession = async (priceId: string) => {
+    const { data: response } = await axios.post(
+      "http://localhost:8080/subs/session",
+      {
+        priceId,
+      }
+    );
+
+
   return (
     <Container>
       <CardsContainer>
@@ -72,7 +81,11 @@ const ArticlesPlan = () => {
               <Card.Title style={{ fontSize: "2rem" }}>
                 {price.nickname}
               </Card.Title>
-              <Button variant="primary" className="mt-2">
+              <Button
+                variant="primary"
+                className="mt-2"
+                onClick={() => createSession(price.id)}
+              >
                 But Now
               </Button>
             </Card.Body>
