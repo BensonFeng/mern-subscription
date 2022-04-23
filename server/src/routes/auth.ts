@@ -56,7 +56,7 @@ router.post(
     const newUser = await User.create({
       email,
       password: hashedPassword,
-      customerStripeId: customer.id,
+      stripeCustomerId: customer.id,
     });
     console.log(newUser);
     console.log(newUser.email);

@@ -14,7 +14,7 @@ const userSchema = new Schema({
     min: 5,
   },
 
-  customerStripeId: {
+  stripeCustomerId: {
     type: String,
     required: true,
   },

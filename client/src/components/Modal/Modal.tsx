@@ -57,7 +57,7 @@ const ModalComponent = ({ text, variant, isSingnupFlow }: ModalProps) => {
       data: {
         id: response.data.user.id,
         email: response.dataemail,
-        customerStripeId: response.data.user.customerStripeId,
+        stripeCustomerId: response.data.user.stripeCustomerId,
       },
       loading: false,
       error: null,

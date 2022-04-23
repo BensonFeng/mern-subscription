@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Nav from "./components/Nav/Nav";
-import LandingPage from "./components/pages/LandingPage";
-import Articles from "./components/pages/Articles";
+import LandingPage from "./pages/LandingPage";
+import Articles from "./pages/Articles";
 import ProtectedRoute from "./routes/ProtectedRoute";
-import ArticlesPlan from "./components/pages/ArticlesPlan";
+import ArticlesPlan from "./pages/ArticlesPlan";
 
 function App() {
   return (

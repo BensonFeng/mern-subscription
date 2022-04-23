@@ -1,4 +1,4 @@
-import Hero from "../Hero/Hero";
+import Hero from "../components/Hero/Hero";
 
 const LandingPage = () => {
   return <Hero />;
