@@ -25,6 +25,7 @@ const SubHeading = styled.h3`
   margin: 1rem 0;
   font-weight: 400;
 `;
+
 const Hero = () => {
   return (
     <HeroComponent>
@@ -35,12 +36,8 @@ const Hero = () => {
             Grow, learn, and become more successful by reading some of the top
             article by highly reputable individuals
           </SubHeading>
-          <ModalComponent
-            text="Signup"
-            variant="primary"
-            isSingnupFlow={true}
-          />
-          <ModalComponent text="Login" variant="danger" isSingnupFlow={false} />
+          <ModalComponent text="Signup" variant="primary" isSignupFlow={true} />
+          <ModalComponent text="Login" variant="danger" isSignupFlow={false} />
         </HeaderContainer>
       </Container>
     </HeroComponent>
