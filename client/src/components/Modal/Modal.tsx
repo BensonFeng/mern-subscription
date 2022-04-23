@@ -8,14 +8,14 @@ import { UserContext } from "../../context";
 interface ModalProps {
   text: string;
   variant: "primary" | "secondary" | "danger";
-  isSingnupFlow: boolean;
+  isSignupFlow: boolean;
 }
 
 const ErrorMessage = styled.p`
   color: red;
 `;
 
-const ModalComponent = ({ text, variant, isSingnupFlow }: ModalProps) => {
+const ModalComponent = ({ text, variant, isSignupFlow }: ModalProps) => {
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -27,9 +27,10 @@ const ModalComponent = ({ text, variant, isSingnupFlow }: ModalProps) => {
   const navigate = useNavigate();
 
   const [state, setState] = useContext(UserContext);
+
   const handleClick = async () => {
     let response;
-    if (isSingnupFlow) {
+    if (isSignupFlow) {
       const { data: signUpData } = await axios.post(
         "http://localhost:8080/auth/signup",
         {
@@ -56,13 +57,12 @@ const ModalComponent = ({ text, variant, isSingnupFlow }: ModalProps) => {
     setState({
       data: {
         id: response.data.user.id,
-        email: response.dataemail,
+        email: response.data.user.email,
         stripeCustomerId: response.data.user.stripeCustomerId,
       },
       loading: false,
       error: null,
     });
-
     localStorage.setItem("token", response.data.token);
     axios.defaults.headers.common[
       "authorization"
@@ -116,4 +116,5 @@ const ModalComponent = ({ text, variant, isSingnupFlow }: ModalProps) => {
     </>
   );
 };
+
 export default ModalComponent;
