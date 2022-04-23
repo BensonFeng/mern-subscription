@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.get("/", checkAuth, async (req, res) => {
   const user = await User.findOne({ email: req.user });
+  console.log(user.stripeCustomerId);
 
   const subscriptions = await stripe.subscriptions.list(
     {
@@ -20,9 +21,7 @@ router.get("/", checkAuth, async (req, res) => {
     }
   );
 
-  if (!subscriptions.data.length) {
-    return res.json([]);
-  }
+  if (!subscriptions.data.length) return res.json([]);
   //@ts-ignore
   const plan = subscriptions.data[0].plan.nickname;
   if (plan === "Basic") {
