@@ -1,5 +1,6 @@
 import express from "express";
 import User from "../models/user";
+import Article from "../models/article";
 import dotenv from "dotenv";
 import { checkAuth } from "../middleware/checkAuth";
 import { stripe } from "../utils/stripe";
@@ -17,6 +18,7 @@ router.get("/prices", checkAuth, async (req, res) => {
 
 router.post("/session", checkAuth, async (req, res) => {
   const user = await User.findOne({ email: req.user });
+
   const session = await stripe.checkout.sessions.create(
     {
       mode: "subscription",
