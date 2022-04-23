@@ -14,11 +14,7 @@ const Nav = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    setState({
-      data: null,
-      error: null,
-      loading: false,
-    });
+    setState({ data: null, loading: false, error: null });
     localStorage.removeItem("token");
     navigate("/");
   };
